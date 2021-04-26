@@ -108,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Personal Expenses'),
+        title: Text('WiseSpend'),
         actions: [
           IconButton(
             icon: Icon(Icons.add),
