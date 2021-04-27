@@ -9,64 +9,54 @@ class ChartBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          height: 20,
-          child: FittedBox(
-            child: Text('\₱${spendingAmount.toStringAsFixed(0)}'),
+    return LayoutBuilder(builder: (ctx, constraints) {
+      return Column(
+        children: [
+          Container(
+            height: constraints.maxHeight * 0.15, //15 percent,
+            child: FittedBox(
+              child: Text('\₱${spendingAmount.toStringAsFixed(0)}'),
+            ),
           ),
-        ),
-        SizedBox(height: 4),
-        Container(
-          height: 80,
-          width: 30,
-          child: Stack(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.grey, width: 1),
-                  color: Color.fromRGBO(220, 220, 220, 1),
-                ),
-              ),
-              FractionallySizedBox(
-                heightFactor: spendingPctOfTotal,
-                child: Container(
+          SizedBox(
+            height: constraints.maxHeight * 0.05, //5 percent,
+          ),
+          Container(
+            height: constraints.maxHeight * 0.6, //60 percent
+            width: 30,
+            child: Stack(
+              children: [
+                Container(
                   decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
                     borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.grey, width: 1),
+                    color: Color.fromRGBO(220, 220, 220, 1),
                   ),
                 ),
-              )
-            ],
+                FractionallySizedBox(
+                  heightFactor: spendingPctOfTotal,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
-        SizedBox(height: 4),
-        Text(label),
-      ],
-    );
+          SizedBox(
+            height: constraints.maxHeight * 0.05, //5 percent,
+          ),
+          Container(
+            //ADDED container for customizing height
+            height: constraints.maxHeight * 0.15, //15 percent
+            child: FittedBox(
+              child: Text(label), //AUTOMATIC RESIZE USING fittedBox
+            ),
+          ),
+        ],
+      );
+    });
   }
 }
-
-// Container(
-//   height: 65,
-//   decoration: BoxDecoration(
-//     borderRadius: BorderRadius.circular(10),
-//     color: Colors.deepPurple.shade100,
-//   ),
-//   child: Stack(
-//     children: <Widget>[
-//       Container(
-//         width: 8,
-
-//         decoration: BoxDecoration(
-//           borderRadius: BorderRadius.only(
-//               topLeft: Radius.circular(15),
-//               bottomLeft: Radius.circular(15)),
-//           color: Colors.deepPurple,
-//         ),
-//       )
-//     ],
-//   ),
-// )
