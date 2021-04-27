@@ -136,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       MediaQuery.of(context)
                           .padding
                           .top) * //notification size or the top notch
-                  0.4, // 40 percent height
+                  0.3, // 40 percent height
               child: Chart(_recentTransactions),
             ),
             Container(
@@ -147,7 +147,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       MediaQuery.of(context)
                           .padding
                           .top) * //notification size or the top notch
-                  0.4, // 40 percent height
+                  0.7, // 70 percent height
               child: TransactionList(_userTransactions, _deleteTransaction),
             ),
           ],
