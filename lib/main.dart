@@ -106,16 +106,17 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      title: Text('WiseSpend!'),
+      actions: [
+        IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () => _startAddNewTransaction(context),
+        )
+      ],
+    );
     return Scaffold(
-      appBar: AppBar(
-        title: Text('WiseSpend!'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () => _startAddNewTransaction(context),
-          )
-        ],
-      ),
+      appBar: appBar,
       //for displaying recent transactions
       //todo : salary
       body: SingleChildScrollView(
@@ -123,12 +124,32 @@ class _MyHomePageState extends State<MyHomePage> {
           // mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              'SALARY!',
-              textAlign: TextAlign.center,
+            // Text(
+            //   'SALARY!',
+            //   textAlign: TextAlign.center,
+            // ),
+            Container(
+              height: (MediaQuery.of(context)
+                          .size
+                          .height - //whole height of the view
+                      appBar.preferredSize.height - //appBar height
+                      MediaQuery.of(context)
+                          .padding
+                          .top) * //notification size or the top notch
+                  0.4, // 40 percent height
+              child: Chart(_recentTransactions),
             ),
-            Chart(_recentTransactions),
-            TransactionList(_userTransactions, _deleteTransaction),
+            Container(
+              height: (MediaQuery.of(context)
+                          .size
+                          .height - //whole height of the view
+                      appBar.preferredSize.height - //appBar height
+                      MediaQuery.of(context)
+                          .padding
+                          .top) * //notification size or the top notch
+                  0.4, // 40 percent height
+              child: TransactionList(_userTransactions, _deleteTransaction),
+            ),
           ],
         ),
       ),
