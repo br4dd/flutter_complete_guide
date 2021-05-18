@@ -13,6 +13,7 @@ class TransactionList extends StatelessWidget {
     return Container(
       height: 300,
       child: transactions.isEmpty
+          //adding layout builder to access constraints for height
           ? LayoutBuilder(builder: (ctx, constraints) {
               return Column(
                 children: [
