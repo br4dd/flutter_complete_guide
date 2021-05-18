@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import './widgets/new_transaction.dart';
@@ -135,6 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   if (isLandscape)
                     //for making switch
                     Text('Show Chart'),
+                  // Switch.adaptive() for adapting theme if ios is use
                   Switch(
                     value: _showChart,
                     onChanged: (val) {
@@ -178,12 +181,16 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => _startAddNewTransaction(context),
-        label: Text('Add Transaction'),
-        icon: Icon(Icons.add),
-      ),
+      //to check device plaform
+      floatingActionButton: Platform.isIOS
+          ? Container(
+              child: Text('YOU\'E USING AN IOS'),
+            )
+          : FloatingActionButton.extended(
+              onPressed: () => _startAddNewTransaction(context),
+              label: Text('Add Transaction'),
+              icon: Icon(Icons.add),
+            ),
     );
   }
 }
