@@ -119,6 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                //for making switch
                 Text('Show Chart'),
                 Switch(
                   value: _showChart,
@@ -130,7 +131,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             ),
+            //tertiary function
             _showChart
+                //DYNAMIC SIZING
                 ? Container(
                     height: (MediaQuery.of(context)
                                 .size
@@ -167,5 +170,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
-//todo put salary
