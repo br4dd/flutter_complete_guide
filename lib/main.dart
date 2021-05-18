@@ -95,6 +95,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // to check if landscape mode
+    final isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
     final appBar = AppBar(
       title: Text('WiseSpend!'),
       actions: [
@@ -104,6 +107,18 @@ class _MyHomePageState extends State<MyHomePage> {
         )
       ],
     );
+
+    // reusable widget
+    final txListWidget = Container(
+      height: (MediaQuery.of(context).size.height - //whole height of the view
+              appBar.preferredSize.height - //appBar height
+              MediaQuery.of(context)
+                  .padding
+                  .top) * //notification size or the top notch
+          .7, // 70 percent height
+      child: TransactionList(_userTransactions, _deleteTransaction),
+    );
+
     return Scaffold(
       appBar: appBar,
       //displaying recent transactions
@@ -112,51 +127,53 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Text(
-            //   'SALARY!',
-            //   textAlign: TextAlign.center,
-            // ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                //for making switch
-                Text('Show Chart'),
-                Switch(
-                  value: _showChart,
-                  onChanged: (val) {
-                    setState(() {
-                      _showChart = val;
-                    });
-                  },
-                ),
-              ],
-            ),
-            //tertiary function
-            _showChart
-                //DYNAMIC SIZING
-                ? Container(
-                    height: (MediaQuery.of(context)
-                                .size
-                                .height - //whole height of the view
-                            appBar.preferredSize.height - //appBar height
-                            MediaQuery.of(context)
-                                .padding
-                                .top) * //notification size or the top notch
-                        .7, // 30 percent height
-                    child: Chart(_recentTransactions),
-                  )
-                : Container(
-                    height: (MediaQuery.of(context)
-                                .size
-                                .height - //whole height of the view
-                            appBar.preferredSize.height - //appBar height
-                            MediaQuery.of(context)
-                                .padding
-                                .top) * //notification size or the top notch
-                        .7, // 70 percent height
-                    child:
-                        TransactionList(_userTransactions, _deleteTransaction),
+            //showing switch if landscape
+            if (isLandscape)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (isLandscape)
+                    //for making switch
+                    Text('Show Chart'),
+                  Switch(
+                    value: _showChart,
+                    onChanged: (val) {
+                      setState(() {
+                        _showChart = val;
+                      });
+                    },
                   ),
+                ],
+              ),
+            //DART DOES NOT ALLOW CURLY BRACES ON LIST IN CONDITION STATEMENTS
+            if (!isLandscape)
+              Container(
+                height: (MediaQuery.of(context)
+                            .size
+                            .height - //whole height of the view
+                        appBar.preferredSize.height - //appBar height
+                        MediaQuery.of(context)
+                            .padding
+                            .top) * //notification size or the top notch
+                    .3, // 30 percent height
+                child: Chart(_recentTransactions),
+              ),
+            if (!isLandscape) txListWidget,
+            if (isLandscape)
+              _showChart //ternary function
+                  //DYNAMIC SIZING
+                  ? Container(
+                      height: (MediaQuery.of(context)
+                                  .size
+                                  .height - //whole height of the view
+                              appBar.preferredSize.height - //appBar height
+                              MediaQuery.of(context)
+                                  .padding
+                                  .top) * //notification size or the top notch
+                          .7, // 70 percent height
+                      child: Chart(_recentTransactions),
+                    )
+                  : txListWidget
           ],
         ),
       ),
