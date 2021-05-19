@@ -92,11 +92,6 @@ class _NewTransactionState extends State<NewTransaction> {
               ),
               //AMOUNT WITH DOUBLE TYPE INPUT ONLY
               TextField(
-                //FOR CURRENCY INPUT//
-                // keyboardType: TextInputType.numberWithOptions(decimal: true),
-                // inputFormatters: <TextInputFormatter>[
-                //   FilteringTextInputFormatter.allow(RegExp('[0-9.,]')),
-                // ],
                 decoration: InputDecoration(
                   labelText: 'Amount',
                 ),
@@ -133,7 +128,8 @@ class _NewTransactionState extends State<NewTransaction> {
               ),
               ElevatedButton(
                 onPressed: _submitData,
-                child: Text('Add Transaction'),
+                child: const Text(
+                    'Add Transaction'), //adding const to save resources
                 // style: TextButton.styleFrom(
                 //     // primary: Colors.green,
                 //     ),
