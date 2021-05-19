@@ -184,11 +184,12 @@ class _MyHomePageState extends State<MyHomePage> {
       //to check device plaform
       floatingActionButton: Platform.isIOS
           ? Container(
-              child: Text('YOU\'E USING AN IOS'),
+              child: Text('YOUR\'E USING AN IOS'),
             )
           : FloatingActionButton.extended(
               onPressed: () => _startAddNewTransaction(context),
-              label: Text('Add Transaction'),
+              label: const Text(
+                  'Add Transaction'), //adding const to save resources
               icon: Icon(Icons.add),
             ),
     );
